@@ -1,11 +1,20 @@
+USE master;
+GO
+ALTER DATABASE db_libraryManagementSystem SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+GO
+DROP DATABASE db_libraryManagementSystem
+
 CREATE DATABASE db_libraryManagementSystem
+
+USE db_libraryManagementSystem
+GO
 
 -----------------------------------------------------------------------------------------------------------------------------------
 --CREATE TABLES
 -----------------------------------------------------------------------------------------------------------------------------------
 
 CREATE TABLE tbl_libraryBranch (
-	BranchID INT PRIMARY KEY NOT NULL,
+	BranchID INT PRIMARY KEY NOT NULL IDENTITY(1,1),
 	BranchName VARCHAR(50) NOT NULL,
 	Address VARCHAR(100) NOT NULL
 )
@@ -52,26 +61,96 @@ CREATE TABLE tbl_bookLoans (
 --POPULATE TABLES
 -----------------------------------------------------------------------------------------------------------------------------------
 
+
+--There are at least 4 branches in the LIBRARY_BRANCH table.
+INSERT INTO tbl_libraryBranch
+	(BranchName, Address)
+	VALUES
+	('Sharpstown', '505 Melody Dr.'),
+	('Central', '50 Lincoln Rd.'),
+	('Downtown', '43 Broadway Ave.'),
+	('North', '5 North Rd.')
+
+--There are at least 20 books in the BOOK table.
+--There must be at least two books written by 'Stephen King'
+
+INSERT INTO tbl_books
+	(Title, PublisherName)
+	VALUES
+	('Misery', 'Stephen King Publishing'),
+	('Carrie', 'Stephen King Publishing'),
+	('The Wings to Awakening', 'Dhammatalks.org'),
+	('Buddhism: An Introduction', 'Dhammatalks.org'),
+	('Biography of Ajaan Maha Boowa', 'ForestDhamma.org'),
+	('Biography of Ajaan Lee', 'ForestDhamma.org'),
+	('Ship Breaker', 'WindupStories.com'),
+	('Windup Girl', 'WindupStories.com'),
+	('The Singularity is Near', 'www.kurzweilai.net'),
+	('Transcend', 'www.kurzweilai.net'),
+	('Harry Potter and the Sorcerer''s Stone', 'Rowling Publishing'),
+	('Harry Potter and the Chamber of Secrets', 'Rowling Publishing'),
+	('Harry Potter and the Methods of Rationality', 'HPMOR.com'),
+	('The Sword of Good', 'lessWrong.com'),
+	('Venerable acariya Mun Bhuridatta Thera', 'ForestDhamma.org'),
+	('The Ballad of Liberation from the Khandhas', 'AccessToInsight.org'),
+	('Kammathana', 'ForestDhamma.org'),
+	('Straight from the Heart', 'ForestDhamma.org'),
+	('The 48 Laws of Power', 'Greene Publishing'),
+	('The 50''th Law', 'Greene Publishing')
+
+--There are at least 10 authors in the BOOK_AUTHORS table one's stephen king.
+INSERT INTO tbl_bookAuthors
+	(Author, BookID)
+	VALUES
+	('Stephen King', 10000),
+	('Stephen King', 10001),
+	('Thanissaro Bhikkhu', 10002),
+	('Thanissaro Bhikkhu', 10003),	
+	('Ajaan Dick Silaratano', 10004),
+	('Ajaan Dick Silaratano', 10005),
+	('Paolo Bacigalupi', 10006),
+	('Paolo Bacigalupi', 10007),
+	('Ray Kurzweil', 10008),
+	('Ray Kurzweil', 10009),
+	('J. K. Rowling', 10010),
+	('J. K. Rowling', 10011),
+	('Eliezer S. Yudkowsky', 10012),
+	('Eliezer S. Yudkowsky', 10013),
+	('Ajaan Mun Bhuridatta', 10014),
+	('Ajaan Mun Bhuridatta', 10015),
+	('Ajahn Maha Bua', 10016),
+	('Ajahn Maha Bua', 10017),
+	('Robert Greene', 10018),
+	('Robert Greene', 10019)
+
+--Each library branch has at least 10 book titles, and at least two copies of each of those titles.
+--There must be at least two books written by 'Stephen King' located at the 'Central' branch.
+Copies
+
+--There are at least 50 loans in the BOOK_LOANS table.
+Loans
+
+--There are at least 8 borrowers in the BORROWER table, and at least 2 of those borrowers have more than 5 books loaned to them.
+Borrower
+
+
+
+publisher
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
 /*
-YOU MAY CHOOSE YOUR OWN DATA TO POPULATE YOUR TABLES AS LONG AS YOUR DATABASE ENSURES THAT THE FOLLOWING CONDITIONS ARE TRUE:
-There is a book called 'The Lost Tribe' found in the 'Sharpstown' branch.
-
-There is a library branch called 'Sharpstown' and one called 'Central'.
-
-There are at least 20 books in the BOOK table.
-
-There are at least 10 authors in the BOOK_AUTHORS table.
-
-Each library branch has at least 10 book titles, and at least two copies of each of those titles.
-
-There are at least 8 borrowers in the BORROWER table, and at least 2 of those borrowers have more than 5 books loaned to them.
-
-There are at least 4 branches in the LIBRARY_BRANCH table.
-
-There are at least 50 loans in the BOOK_LOANS table.
-
-There must be at least two books written by 'Stephen King' located at the 'Central' branch.
-
 CREATE STORED PROCEDURES THAT WILL QUERY FOR EACH OF THE FOLLOWING QUESTIONS:
 1.) How many copies of the book titled "The Lost Tribe" are owned by the library branch whose name is "Sharpstown"?
 
